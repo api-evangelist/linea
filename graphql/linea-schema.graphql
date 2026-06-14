@@ -1,0 +1,639 @@
+# Linea GraphQL Schema
+# Source: Live introspection of https://api-explorer.linea.build/api/v1/graphql
+# Network: Linea Mainnet (chain ID 59144) via Blockscout explorer
+# Retrieved: 2026-06-14
+
+# ─── Scalars ─────────────────────────────────────────────────────────────────
+
+"""
+The address (40 hex characters / 160 bits / 20 bytes) derived from the public key.
+The address is the last 40 characters of the keccak-256 hash of the public key with `0x` appended.
+"""
+scalar AddressHash
+
+"""
+The smallest fractional unit of Ether. Using wei instead of ether allows integer math.
+"""
+scalar Wei
+
+"""
+A 32-byte KECCAK-256 hash.
+"""
+scalar FullHash
+
+"""
+The nonce (16 hex characters / 128 bits / 8 bytes) derived from Proof-of-Work.
+"""
+scalar NonceHash
+
+"""
+An unpadded hexadecimal number. Each pair of digits maps to a byte in the underlying binary.
+"""
+scalar Data
+
+"""
+The DateTime scalar represents a date and time in UTC (ISO 8601 format with Z suffix).
+"""
+scalar DateTime
+
+"""
+The Decimal scalar represents signed double-precision fractional values as strings to preserve precision.
+"""
+scalar Decimal
+
+"""
+Arbitrary JSON string data represented as UTF-8 character sequences.
+"""
+scalar Json
+
+# ─── Enums ───────────────────────────────────────────────────────────────────
+
+"""Call type for internal transactions."""
+enum CallType {
+  CALL
+  CALLCODE
+  DELEGATECALL
+  STATICCALL
+}
+
+"""Internal transaction type."""
+enum Type {
+  CALL
+  CREATE
+  REWARD
+  SELFDESTRUCT
+}
+
+"""Smart contract language."""
+enum Language {
+  SOLIDITY
+  VYPER
+  YUL
+}
+
+"""Sort order for paginated queries."""
+enum SortOrder {
+  ASC
+  DESC
+}
+
+"""Transaction execution status."""
+enum Status {
+  OK
+  ERROR
+}
+
+# ─── Interfaces ──────────────────────────────────────────────────────────────
+
+"""Relay-style node interface for global object identification."""
+interface Node {
+  id: ID!
+}
+
+# ─── Pagination ──────────────────────────────────────────────────────────────
+
+"""Relay-style page info for cursor-based pagination."""
+type PageInfo {
+  startCursor: String
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+# ─── Core Types ──────────────────────────────────────────────────────────────
+
+"""
+A stored representation of a Web3 address on Linea.
+"""
+type Address {
+  """EVM bytecode for contract addresses."""
+  contractCode: Data
+
+  """Current ETH balance in wei."""
+  fetchedCoinBalance: Wei
+
+  """Block number at which the balance was fetched."""
+  fetchedCoinBalanceBlockNumber: Int
+
+  """Total gas used by transactions from this address."""
+  gasUsed: Int
+
+  """The 20-byte Ethereum address."""
+  hash: AddressHash
+
+  """Current transaction nonce."""
+  nonce: Int
+
+  """Verified smart contract details (if this address is a contract)."""
+  smartContract: SmartContract
+
+  """Paginated token transfers involving this address."""
+  tokenTransfers(
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): TokenTransferConnection
+
+  """Total number of token transfers involving this address."""
+  tokenTransfersCount: Int
+
+  """Paginated transactions from or to this address."""
+  transactions(
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): TransactionConnection
+
+  """Total number of transactions involving this address."""
+  transactionsCount: Int
+}
+
+"""
+A block on the Linea blockchain.
+"""
+type Block {
+  """Base fee per gas (EIP-1559)."""
+  baseFeePerGas: Wei
+
+  """Whether this block reached consensus."""
+  consensus: Boolean
+
+  """Block difficulty (legacy PoW field; 0 for PoS/ZK-rollup blocks)."""
+  difficulty: Decimal
+
+  """Maximum gas allowed in this block."""
+  gasLimit: Decimal
+
+  """Actual gas consumed by all transactions in this block."""
+  gasUsed: Decimal
+
+  """Block hash (32-byte keccak-256)."""
+  hash: FullHash
+
+  """Whether the block contains no transactions."""
+  isEmpty: Boolean
+
+  """Address of the block producer (sequencer on Linea)."""
+  minerHash: AddressHash
+
+  """Block nonce."""
+  nonce: NonceHash
+
+  """Block height (sequential block number)."""
+  number: Int
+
+  """Hash of the preceding block."""
+  parentHash: FullHash
+
+  """Block size in bytes."""
+  size: Int
+
+  """Block production timestamp (UTC)."""
+  timestamp: DateTime
+
+  """Cumulative difficulty up to and including this block."""
+  totalDifficulty: Decimal
+}
+
+"""
+A Web3 transaction on Linea.
+"""
+type Transaction implements Node {
+  """The block that included this transaction."""
+  block: Block
+
+  """Hash of the containing block."""
+  blockHash: FullHash
+
+  """Block height of the containing block."""
+  blockNumber: Int
+
+  """Address of a contract created by this transaction (if any)."""
+  createdContractAddressHash: AddressHash
+
+  """Cumulative gas used in the block up to and including this transaction."""
+  cumulativeGasUsed: Decimal
+
+  """Earliest timestamp when processing of this transaction began."""
+  earliestProcessingStart: DateTime
+
+  """Error message if the transaction reverted."""
+  error: String
+
+  """Sender address."""
+  fromAddressHash: AddressHash
+
+  """Gas limit set by the sender."""
+  gas: Decimal
+
+  """Gas price paid (pre-EIP-1559 or effective price)."""
+  gasPrice: Wei
+
+  """Actual gas consumed."""
+  gasUsed: Decimal
+
+  """Whether any internal transaction contained an error."""
+  hasErrorInInternalTransactions: Boolean
+
+  """Transaction hash (32-byte keccak-256)."""
+  hash: FullHash
+
+  id: ID!
+
+  """Position of this transaction within its block."""
+  index: Int
+
+  """Encoded calldata sent with the transaction."""
+  input: String
+
+  """Paginated internal (trace) transactions triggered by this transaction."""
+  internalTransactions(
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): InternalTransactionConnection
+
+  """EIP-1559 maximum total fee per gas."""
+  maxFeePerGas: Wei
+
+  """EIP-1559 maximum priority fee (tip) per gas."""
+  maxPriorityFeePerGas: Wei
+
+  """Sender nonce at the time of the transaction."""
+  nonce: NonceHash
+
+  """ECDSA r component of the signature."""
+  r: Decimal
+
+  """Revert reason string (if available)."""
+  revertReason: String
+
+  """ECDSA s component of the signature."""
+  s: Decimal
+
+  """Execution status: OK or ERROR."""
+  status: Status
+
+  """Recipient address (null for contract creation)."""
+  toAddressHash: AddressHash
+
+  """EIP-2718 transaction type (0=legacy, 1=access list, 2=EIP-1559)."""
+  type: Int
+
+  """ECDSA v component of the signature."""
+  v: Decimal
+
+  """ETH value transferred in wei."""
+  value: Wei
+}
+
+"""Relay connection for Transaction."""
+type TransactionConnection {
+  edges: [TransactionEdge]
+  pageInfo: PageInfo!
+}
+
+type TransactionEdge {
+  cursor: String
+  node: Transaction
+}
+
+"""
+An internal transaction (trace) triggered by a smart contract call.
+"""
+type InternalTransaction implements Node {
+  """Hash of the containing block."""
+  blockHash: FullHash
+
+  """Index of this internal transaction within the block."""
+  blockIndex: Int
+
+  """Block height."""
+  blockNumber: Int
+
+  """EVM call type."""
+  callType: CallType
+
+  """Address of any contract created by this call."""
+  createdContractAddressHash: AddressHash
+
+  """Bytecode of any contract created by this call."""
+  createdContractCode: Data
+
+  """Error message if the call failed."""
+  error: String
+
+  """Caller address."""
+  fromAddressHash: AddressHash
+
+  """Gas limit for this internal call."""
+  gas: Decimal
+
+  """Gas consumed by this internal call."""
+  gasUsed: Decimal
+
+  id: ID!
+
+  """Index of this internal transaction within its parent transaction's trace."""
+  index: Int
+
+  """Constructor init code (for CREATE calls)."""
+  init: Data
+
+  """Encoded input data for the call."""
+  input: Data
+
+  """Return data from the call."""
+  output: Data
+
+  """Callee address."""
+  toAddressHash: AddressHash
+
+  """JSON array of integers indicating the call's position in the call tree."""
+  traceAddress: Json
+
+  """Hash of the parent transaction."""
+  transactionHash: FullHash
+
+  """Position of the parent transaction in its block."""
+  transactionIndex: Int
+
+  """Internal transaction type: CALL, CREATE, REWARD, or SELFDESTRUCT."""
+  type: Type
+
+  """ETH value transferred in wei."""
+  value: Wei
+}
+
+"""Relay connection for InternalTransaction."""
+type InternalTransactionConnection {
+  edges: [InternalTransactionEdge]
+  pageInfo: PageInfo!
+}
+
+type InternalTransactionEdge {
+  cursor: String
+  node: InternalTransaction
+}
+
+"""
+Represents an ERC-20, ERC-721, or ERC-1155 token on Linea.
+"""
+type Token {
+  """Circulating market capitalization in USD."""
+  circulatingMarketCap: Decimal
+
+  """Token contract address."""
+  contractAddressHash: AddressHash
+
+  """Number of decimal places for display (ERC-20)."""
+  decimals: Decimal
+
+  """Number of unique holder addresses."""
+  holderCount: Int
+
+  """URL to the token's icon image."""
+  iconUrl: String
+
+  """Human-readable token name (e.g., "USD Coin")."""
+  name: String
+
+  """Token ticker symbol (e.g., "USDC")."""
+  symbol: String
+
+  """Total token supply (raw, use `decimals` to format)."""
+  totalSupply: Decimal
+
+  """Token standard: ERC-20, ERC-721, or ERC-1155."""
+  type: String
+
+  """24-hour trading volume in USD."""
+  volume24h: Decimal
+}
+
+"""
+A token transfer event (ERC-20 Transfer, ERC-721 Transfer, or ERC-1155 TransferSingle/Batch).
+"""
+type TokenTransfer implements Node {
+  """Amount transferred (ERC-20; null for NFTs)."""
+  amount: Decimal
+
+  """Amounts transferred (ERC-1155 batch transfers)."""
+  amounts: [Decimal]
+
+  """Block height of the containing transaction."""
+  blockNumber: Int
+
+  """Sender address."""
+  fromAddressHash: AddressHash
+
+  id: ID!
+
+  """Log index of the Transfer event within the transaction."""
+  logIndex: Int
+
+  """Recipient address."""
+  toAddressHash: AddressHash
+
+  """Token metadata."""
+  token: Token
+
+  """Token contract address."""
+  tokenContractAddressHash: AddressHash
+
+  """Token IDs transferred (ERC-721 / ERC-1155)."""
+  tokenIds: [Decimal]
+
+  """Parent transaction details."""
+  transaction: Transaction
+
+  """Hash of the containing transaction."""
+  transactionHash: FullHash
+}
+
+"""Relay connection for TokenTransfer."""
+type TokenTransferConnection {
+  edges: [TokenTransferEdge]
+  pageInfo: PageInfo!
+}
+
+type TokenTransferEdge {
+  cursor: String
+  node: TokenTransfer
+}
+
+"""
+Verified smart contract source code and metadata.
+"""
+type SmartContract {
+  """ABI definition as JSON."""
+  abi: Json
+
+  """Contract address."""
+  addressHash: AddressHash
+
+  """Compiler settings as JSON."""
+  compilerSettings: Json
+
+  """Solidity/Vyper compiler version used."""
+  compilerVersion: String
+
+  """ABI-encoded constructor arguments."""
+  constructorArguments: String
+
+  """Verified source code."""
+  contractSourceCode: String
+
+  """EVM target version (e.g., "london")."""
+  evmVersion: String
+
+  """External library addresses as JSON."""
+  externalLibraries: Json
+
+  """Source file path within the project."""
+  filePath: String
+
+  """Whether the deployed bytecode differs from the verified source."""
+  isChangedBytecode: Boolean
+
+  """Source language: SOLIDITY, VYPER, or YUL."""
+  language: Language
+
+  """Contract name."""
+  name: String
+
+  """Whether the optimizer was enabled during compilation."""
+  optimization: Boolean
+
+  """Number of optimizer runs."""
+  optimizationRuns: Int
+
+  """Whether the contract is only partially verified."""
+  partiallyVerified: Boolean
+
+  """Whether verification was performed via the Ethereum Bytecode Database."""
+  verifiedViaEthBytecodeDb: Boolean
+
+  """Whether verification was performed via Sourcify."""
+  verifiedViaSourcify: Boolean
+}
+
+# ─── Celo Transfer Types (included in Blockscout schema) ─────────────────────
+
+"""
+Represents a CELO or USD token transfer between addresses (Celo network compatibility type).
+Included in schema for cross-chain compatibility; not commonly used on Linea.
+"""
+type CeloTransfer implements Node {
+  blockNumber: Int
+  comment: String
+  fromAccountHash: AddressHash
+  fromAddressHash: AddressHash
+  gasPrice: Wei
+  gasUsed: Decimal
+  id: ID!
+  input: String
+  logIndex: Int
+  timestamp: DateTime
+  toAccountHash: AddressHash
+  toAddressHash: AddressHash
+  token: String
+  tokenAddress: String
+  tokenId: Decimal
+  tokenType: String
+  transactionHash: FullHash
+  value: Decimal
+}
+
+"""Relay connection for CeloTransfer."""
+type CeloTransferConnection {
+  edges: [CeloTransferEdge]
+  pageInfo: PageInfo!
+}
+
+type CeloTransferEdge {
+  cursor: String
+  node: CeloTransfer
+}
+
+"""Transfer transaction wrapper (Celo compatibility type)."""
+type TransferTransaction implements Node {
+  addressHash: AddressHash
+  blockNumber: Int
+  feeCurrency: AddressHash
+  feeToken: String
+  gasPrice: Wei
+  gasUsed: Decimal
+  gatewayFee: AddressHash
+  gatewayFeeRecipient: AddressHash
+  id: ID!
+  input: String
+  timestamp: DateTime
+  tokenTransfer: CeloTransferConnection
+  transactionHash: FullHash
+}
+
+"""Relay connection for TransferTransaction."""
+type TransferTransactionConnection {
+  edges: [TransferTransactionEdge]
+  pageInfo: PageInfo!
+}
+
+type TransferTransactionEdge {
+  cursor: String
+  node: TransferTransaction
+}
+
+# ─── Root Types ──────────────────────────────────────────────────────────────
+
+type Query {
+  """Fetch a single address by its 20-byte hash."""
+  address(hash: AddressHash!): Address
+
+  """Fetch multiple addresses by their hashes."""
+  addresses(hashes: [AddressHash!]!): [Address]
+
+  """Fetch a block by its block number."""
+  block(number: Int!): Block
+
+  """Fetch any node by its global Relay ID."""
+  node(id: ID!): Node
+
+  """
+  Paginated list of transactions that contain token transfers for a given address.
+  """
+  tokenTransferTxs(
+    addressHash: AddressHash
+    after: String
+    before: String
+    count: Int
+    first: Int
+    last: Int
+  ): TransferTransactionConnection
+
+  """
+  Paginated list of token transfer events for a specific token contract.
+  """
+  tokenTransfers(
+    tokenContractAddressHash: AddressHash!
+    after: String
+    before: String
+    count: Int
+    first: Int
+    last: Int
+  ): TokenTransferConnection
+
+  """Fetch a transaction by its 32-byte hash."""
+  transaction(hash: FullHash!): Transaction
+}
+
+type Subscription {
+  """
+  Real-time stream of token transfer events for a given token contract.
+  Connect via WebSocket at wss://api-explorer.linea.build/socket/websocket.
+  """
+  tokenTransfers(tokenContractAddressHash: AddressHash!): [TokenTransfer]
+}
