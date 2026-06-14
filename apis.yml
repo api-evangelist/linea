@@ -1,0 +1,195 @@
+aid: linea
+name: Linea
+url: https://raw.githubusercontent.com/api-evangelist/linea/refs/heads/main/apis.yml
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+description: >-
+  Linea is ConsenSys' ZK-EVM Layer 2 network built on Ethereum, offering low fees, fast finality,
+  and full EVM compatibility. Developers access on-chain data through three complementary API
+  surfaces: a public JSON-RPC endpoint (rpc.linea.build) supporting all standard Ethereum methods
+  plus Linea-specific extensions (linea_estimateGas, linea_getProof), a REST Token API
+  (token-api.linea.build) for ERC-20 token metadata and price history, and the Lineascan block
+  explorer API (Etherscan V2-compatible) for transactions, blocks, addresses, token transfers,
+  event logs, and contract verification across Linea Mainnet (chainId 59144) and Sepolia testnet
+  (chainId 59141).
+specificationVersion: '0.19'
+created: '2026-06-13'
+modified: '2026-06-13'
+x-source: public-research
+x-category: Blockchain
+x-type: company
+x-tier: 2
+x-tier-reason: pipeline-enriched
+tags:
+  - Blockchain
+  - Ethereum
+  - Layer 2
+  - ZK-EVM
+  - Web3
+  - DeFi
+  - Smart Contracts
+  - JSON-RPC
+  - Tokens
+  - ConsenSys
+apis:
+  - aid: linea:json-rpc-api
+    name: Linea JSON-RPC API
+    description: >-
+      Standard Ethereum JSON-RPC API plus Linea-specific extensions available at the public
+      endpoint rpc.linea.build. Supports all eth_* methods (eth_blockNumber, eth_getBlockByNumber,
+      eth_sendRawTransaction, eth_call, eth_getLogs, etc.) as well as ERC-4337 account abstraction
+      bundler methods and Linea-specific methods including linea_estimateGas (returns baseFeePerGas,
+      priorityFeePerGas, and gasLimit accounting for L1 verification costs) and linea_getProof.
+      The public endpoint is free but rate-limited; production workloads should use a private
+      node provider such as Infura or Alchemy.
+    humanURL: https://docs.linea.build/api/reference
+    baseURL: https://rpc.linea.build
+    tags:
+      - JSON-RPC
+      - Ethereum
+      - Blockchain
+      - ERC-4337
+      - Account Abstraction
+    properties:
+      - type: Documentation
+        url: https://docs.linea.build/api/reference
+      - type: APIReference
+        url: https://docs.linea.build/api/reference
+      - type: GettingStarted
+        url: https://docs.linea.build/get-started/build/quickstart/deploy
+
+  - aid: linea:token-api
+    name: Linea Token API
+    description: >-
+      REST API for ERC-20 token data on the Linea network, available at token-api.linea.build.
+      Provides token listings with filtering by security score, spam flags, and market metrics;
+      token detail by contract address (name, symbol, decimals, current price, 24h variation,
+      total supply, FDV, swap counts); and hourly price history over the last 24 hours for one
+      or multiple tokens. Rate-limited to 2 requests per second / 60 requests per minute per IP.
+      No API key required for basic access.
+    humanURL: https://docs.linea.build/api/token-api/overview
+    baseURL: https://token-api.linea.build
+    tags:
+      - Tokens
+      - ERC-20
+      - Prices
+      - DeFi
+    properties:
+      - type: Documentation
+        url: https://docs.linea.build/api/token-api/overview
+      - type: APIReference
+        url: https://docs.linea.build/api/token-api/reference
+
+  - aid: linea:explorer-api
+    name: Linea Explorer API (Lineascan / Blockscout)
+    description: >-
+      Blockchain data APIs for Linea Mainnet backed by two explorer surfaces. The Lineascan
+      (lineascan.build) explorer uses the Etherscan API V2 interface (chain ID 59144) with
+      modules covering accounts (native and ERC-20/721/1155 balances and transfer histories),
+      transactions (normal, internal, deposit, withdrawal), blocks (rewards, countdowns, block
+      number by timestamp), smart contracts (source code, ABI, creator, verification), token
+      information (supply, holder list, holder count), event logs (by address and topics), and
+      network statistics (daily transaction counts, gas usage, new address counts, Ether price
+      and supply). The Blockscout-based explorer (explorer.linea.build) provides a complementary
+      REST and GraphQL API surface. An API key from lineascan.build is required; subscriptions
+      are managed via the Etherscan API V2 portal.
+    humanURL: https://lineascan.build/apis
+    baseURL: https://api.lineascan.build/api
+    tags:
+      - Explorer
+      - Transactions
+      - Blocks
+      - Accounts
+      - Tokens
+      - Contracts
+      - Event Logs
+      - Statistics
+    properties:
+      - type: Documentation
+        url: https://docs.etherscan.io
+      - type: APIReference
+        url: https://docs.etherscan.io
+      - type: Authentication
+        url: https://lineascan.build/myapikey
+      - type: Explorer
+        url: https://lineascan.build
+      - type: BlockscoutExplorer
+        url: https://explorer.linea.build
+      - type: BlockscoutAPIReference
+        url: https://explorer.linea.build/api-docs
+
+common:
+  - type: Portal
+    url: https://linea.build
+  - type: Documentation
+    url: https://docs.linea.build
+  - type: APIReference
+    url: https://docs.linea.build/api/reference
+  - type: GettingStarted
+    url: https://docs.linea.build/get-started/build/quickstart/deploy
+  - type: Explorer
+    url: https://lineascan.build
+  - type: Testnet
+    url: https://sepolia.lineascan.build
+  - type: Bridge
+    url: https://bridge.linea.build
+  - type: Pricing
+    url: https://etherscan.io/apis?id=59144
+  - type: GitHubOrganization
+    url: https://github.com/ConsenSys
+  - type: GitHubOrganization
+    url: https://github.com/Consensys
+  - type: XTwitter
+    url: https://x.com/lineabuild
+  - type: Discord
+    url: https://discord.gg/linea
+  - type: Plans
+    url: plans/linea-plans.yml
+  - type: RateLimits
+    url: rate-limits/linea-rate-limits.yml
+  - type: FinOps
+    url: finops/linea-finops.yml
+  - type: Features
+    data:
+      - name: EVM-compatible JSON-RPC
+        description: Full Ethereum JSON-RPC compatibility means existing Hardhat, Foundry, Truffle, ethers.js, viem, and web3.py tooling works unchanged on Linea.
+      - name: Linea-specific gas estimation
+        description: linea_estimateGas returns baseFeePerGas, priorityFeePerGas, and gasLimit including L1 finalization costs, enabling accurate fee budgeting on the ZK rollup.
+      - name: ERC-4337 bundler endpoint
+        description: Built-in account abstraction bundler methods (eth_sendUserOperation, eth_estimateUserOperationGas, Pimlico extensions) available on the public RPC.
+      - name: Token REST API
+        description: Dedicated REST service at token-api.linea.build for ERC-20 token listings, metadata, security scoring, and 24-hour price history without requiring an API key.
+      - name: Etherscan-compatible explorer API
+        description: Lineascan implements the Etherscan API V2 interface, giving access to all standard explorer modules (accounts, transactions, contracts, tokens, logs, stats) via chain ID 59144.
+      - name: Dual explorer surfaces
+        description: Both Lineascan (Etherscan-style) and a Blockscout instance provide redundant explorer APIs with REST and GraphQL options.
+  - type: UseCases
+    data:
+      - name: DeFi application development
+        description: Query token balances, prices, and swap activity to power DEX front-ends, yield dashboards, and portfolio trackers on Linea.
+      - name: Smart contract deployment and verification
+        description: Deploy EVM contracts using standard tooling and verify source code via the Lineascan API for public transparency.
+      - name: Transaction monitoring
+        description: Track address activity, internal transactions, and ERC-20 transfers in real time for wallets, compliance, and analytics.
+      - name: Gas cost optimization
+        description: Use linea_estimateGas to accurately budget L1+L2 costs before submitting transactions, avoiding under-gas failures.
+      - name: Token analytics
+        description: Pull token holder lists, supply data, price history, and security scores to build on-chain analytics and due-diligence tools.
+      - name: Cross-chain bridge monitoring
+        description: Track deposit and withdrawal transactions across the Linea canonical bridge to Ethereum mainnet.
+  - type: Integrations
+    data:
+      - name: Infura
+        description: Managed Linea RPC nodes with private endpoints and higher rate limits via MetaMask developer services.
+      - name: Alchemy
+        description: Alchemy provides Linea RPC nodes with enhanced APIs, webhooks, and developer tooling.
+      - name: The Graph
+        description: Subgraphs can index Linea events for custom GraphQL queries over protocol data.
+      - name: Dune Analytics
+        description: Linea on-chain data is queryable via Dune for SQL-based analytics and dashboards.
+      - name: Hardhat and Foundry
+        description: Standard EVM development frameworks connect to Linea RPC without modification.
+      - name: Chainlink and Pyth
+        description: Price oracles deployed on Linea provide on-chain price feeds for DeFi protocols.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

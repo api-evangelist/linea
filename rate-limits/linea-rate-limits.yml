@@ -1,0 +1,116 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Linea
+providerId: linea
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: false
+tags:
+  - Blockchain
+  - Layer 2
+  - Ethereum
+  - ZK-EVM
+  - Rate Limiting
+description: >-
+  Linea exposes three distinct API surfaces with independent rate limits. The public JSON-RPC
+  endpoint (rpc.linea.build) is free but rate-limited per IP; exact limits are not published
+  and vary with network load — production traffic should use private node providers (Infura,
+  Alchemy). The Token REST API enforces a hard cap of 2 requests per second and 60 requests
+  per minute per IP address. The Lineascan explorer API follows Etherscan V2 tier limits
+  ranging from 3 calls/second on the Free tier up to 30 calls/second on Professional and
+  unmetered on Enterprise. Throttled responses return HTTP 429.
+sources:
+  - https://docs.linea.build/api/token-api/overview
+  - https://etherscan.io/apis?id=59144
+  - https://docs.etherscan.io/getting-started/rate-limits
+responseCodes:
+  throttled: 429
+limits:
+  - name: Public RPC endpoint
+    scope: ip_address
+    metric: requests_per_second
+    limit: -1
+    notes: >-
+      rpc.linea.build is rate-limited per IP but exact thresholds are not publicly documented.
+      Free and suitable for development; use Infura, Alchemy, or QuickNode for production.
+
+  - name: Token API - per second
+    scope: ip_address
+    metric: requests_per_second
+    limit: 2
+    notes: Hard cap of 2 requests per second per IP address on the Token REST API.
+
+  - name: Token API - per minute
+    scope: ip_address
+    metric: requests_per_minute
+    limit: 60
+    notes: Hard cap of 60 requests per minute per IP address on the Token REST API.
+
+  - name: Lineascan Explorer API - Free tier
+    scope: api_key
+    metric: requests_per_second
+    limit: 3
+    notes: Community chain free tier; 100,000 calls/day maximum.
+
+  - name: Lineascan Explorer API - Free tier daily
+    scope: api_key
+    metric: requests_per_day
+    limit: 100000
+    notes: Daily call quota for the Free tier of the Etherscan V2 API.
+
+  - name: Lineascan Explorer API - Lite tier
+    scope: api_key
+    metric: requests_per_second
+    limit: 5
+    notes: $49/month; 100,000 calls/day; all supported chains.
+
+  - name: Lineascan Explorer API - Standard tier
+    scope: api_key
+    metric: requests_per_second
+    limit: 10
+    notes: $199/month; 200,000 calls/day; includes API Pro endpoints.
+
+  - name: Lineascan Explorer API - Advanced tier
+    scope: api_key
+    metric: requests_per_second
+    limit: 20
+    notes: $299/month; 500,000 calls/day.
+
+  - name: Lineascan Explorer API - Professional tier
+    scope: api_key
+    metric: requests_per_second
+    limit: 30
+    notes: $399/month; 1,000,000 calls/day.
+
+  - name: Lineascan Explorer API - Enterprise tier
+    scope: api_key
+    metric: requests_per_second
+    limit: -1
+    notes: Custom pricing; unmetered rate limits with dedicated infrastructure and SLA.
+
+policies:
+  - name: Exponential Backoff
+    description: >-
+      On HTTP 429 responses, apply exponential backoff with jitter before retrying. The Token API
+      documentation explicitly recommends this pattern.
+  - name: Caching
+    description: >-
+      Cache token metadata and price responses locally to reduce Token API call volume;
+      price data updates on a cadence that does not require per-request freshness.
+  - name: Pagination
+    description: >-
+      Use page and limit parameters on Token API list endpoints; use the Lineascan API cursor
+      or offset parameters for large result sets rather than tightening page size and re-polling.
+  - name: Private RPC for Production
+    description: >-
+      The public rpc.linea.build endpoint is unsuitable for production traffic due to undocumented
+      rate limits and no SLA. Register with Infura, Alchemy, QuickNode, Chainstack, or Dwellir
+      for a private endpoint with guaranteed throughput.
+  - name: API Key Per Workload
+    description: >-
+      Obtain separate Lineascan API keys per application workload to isolate quota consumption
+      and enable per-service cost attribution.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

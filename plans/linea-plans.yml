@@ -1,0 +1,330 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Linea
+providerId: linea
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: false
+tags:
+  - Blockchain
+  - Layer 2
+  - Ethereum
+  - ZK-EVM
+  - Plans
+description: >-
+  Linea's public JSON-RPC endpoint (rpc.linea.build) and Token API are free with rate limits
+  applied per IP. The Lineascan block explorer API uses the Etherscan API V2 pricing model
+  (Free, Lite, Standard, Advanced, Professional, Pro Plus, Enterprise) with subscriptions now
+  managed through the Etherscan V2 portal unified across 50+ EVM chains. An API key from
+  lineascan.build is required for explorer API access; the Token API and public RPC require
+  no key for basic usage.
+notes: >-
+  Explorer API pricing reflects the Etherscan V2 tier schedule as of mid-2026. Lineascan API
+  subscriptions are unified with the Etherscan multi-chain API V2 — a single subscription key
+  covers all supported chains including Linea (chain ID 59144). The public RPC is free but
+  unsuitable for production due to rate limits; node providers like Infura and Alchemy offer
+  paid private endpoints.
+sources:
+  - https://etherscan.io/apis?id=59144
+  - https://docs.etherscan.io
+  - https://docs.linea.build/api/token-api/overview
+plans:
+  - id: linea-rpc-public
+    name: Public RPC (Free)
+    type: freemium
+    description: >-
+      Free rate-limited public JSON-RPC endpoint at rpc.linea.build. No API key required.
+      Suitable for development and light testing; not recommended for production traffic.
+    entries:
+      - label: Monthly subscription
+        name: rpc_public_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Standard Ethereum JSON-RPC methods
+      - name: Linea-specific methods (linea_estimateGas, linea_getProof)
+      - name: ERC-4337 bundler methods
+      - name: Rate-limited per IP
+      - name: No API key required
+
+  - id: linea-token-api-free
+    name: Token API (Free)
+    type: freemium
+    description: >-
+      Free Token REST API at token-api.linea.build with no authentication required. Rate-limited
+      to 2 requests per second and 60 requests per minute per IP address.
+    entries:
+      - label: Monthly subscription
+        name: token_api_free_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Rate limit per second
+        name: token_api_rate_per_second
+        type: quota
+        metric: requests_per_second
+        limit: 2
+        timeFrame: second
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Rate limit per minute
+        name: token_api_rate_per_minute
+        type: quota
+        metric: requests_per_minute
+        limit: 60
+        timeFrame: minute
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Token listings and metadata
+      - name: Token price by contract address
+      - name: 24-hour hourly price history
+      - name: No API key required
+      - name: Caching and pagination supported
+
+  - id: linea-explorer-free
+    name: Lineascan Explorer API Free
+    type: freemium
+    description: >-
+      Free Etherscan API V2 tier for community chains including Linea. Limited to 3 calls/second
+      and up to 100,000 API calls per day. API key from lineascan.build required.
+    entries:
+      - label: Monthly subscription
+        name: explorer_free_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Rate limit
+        name: explorer_free_rate
+        type: quota
+        metric: requests_per_second
+        limit: 3
+        timeFrame: second
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Daily call quota
+        name: explorer_free_daily
+        type: quota
+        metric: requests_per_day
+        limit: 100000
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Community chain coverage (includes Linea)
+      - name: API key required
+      - name: Attribution required
+
+  - id: linea-explorer-lite
+    name: Lineascan Explorer API Lite
+    type: subscription
+    description: >-
+      Paid Etherscan V2 Lite tier. 5 calls/second, up to 100,000 API calls per day, access to
+      all 50+ supported chains including Linea. $49/month (discounts for quarterly and annual).
+    entries:
+      - label: Monthly subscription
+        name: explorer_lite_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '49.00'
+        userMultiplied: false
+      - label: Rate limit
+        name: explorer_lite_rate
+        type: quota
+        metric: requests_per_second
+        limit: 5
+        timeFrame: second
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Daily call quota
+        name: explorer_lite_daily
+        type: quota
+        metric: requests_per_day
+        limit: 100000
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: All supported chains access
+      - name: Higher rate limits than Free
+
+  - id: linea-explorer-standard
+    name: Lineascan Explorer API Standard
+    type: subscription
+    description: >-
+      Etherscan V2 Standard tier. 10 calls/second, up to 200,000 API calls per day, includes
+      API Pro endpoints. $199/month.
+    entries:
+      - label: Monthly subscription
+        name: explorer_standard_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '199.00'
+        userMultiplied: false
+      - label: Rate limit
+        name: explorer_standard_rate
+        type: quota
+        metric: requests_per_second
+        limit: 10
+        timeFrame: second
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Daily call quota
+        name: explorer_standard_daily
+        type: quota
+        metric: requests_per_day
+        limit: 200000
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: API Pro endpoints included
+      - name: All supported chains
+
+  - id: linea-explorer-advanced
+    name: Lineascan Explorer API Advanced
+    type: subscription
+    description: >-
+      Etherscan V2 Advanced tier. 20 calls/second, up to 500,000 API calls per day. $299/month.
+    entries:
+      - label: Monthly subscription
+        name: explorer_advanced_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '299.00'
+        userMultiplied: false
+      - label: Rate limit
+        name: explorer_advanced_rate
+        type: quota
+        metric: requests_per_second
+        limit: 20
+        timeFrame: second
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Daily call quota
+        name: explorer_advanced_daily
+        type: quota
+        metric: requests_per_day
+        limit: 500000
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: High-throughput access
+      - name: All supported chains
+
+  - id: linea-explorer-professional
+    name: Lineascan Explorer API Professional
+    type: subscription
+    description: >-
+      Etherscan V2 Professional tier. 30 calls/second, up to 1,000,000 API calls per day. $399/month.
+    entries:
+      - label: Monthly subscription
+        name: explorer_professional_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '399.00'
+        userMultiplied: false
+      - label: Rate limit
+        name: explorer_professional_rate
+        type: quota
+        metric: requests_per_second
+        limit: 30
+        timeFrame: second
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Daily call quota
+        name: explorer_professional_daily
+        type: quota
+        metric: requests_per_day
+        limit: 1000000
+        timeFrame: day
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: 1M calls/day
+      - name: All supported chains
+
+  - id: linea-explorer-enterprise
+    name: Lineascan Explorer API Enterprise
+    type: enterprise
+    description: >-
+      Etherscan V2 Enterprise tier. Unmetered rate limits, dedicated infrastructure with SLA,
+      and escalated support. Custom pricing.
+    entries:
+      - label: Custom pricing
+        name: explorer_enterprise_custom
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: contract
+        geo: global
+        unit: 1
+        price: contact sales
+        userMultiplied: false
+    elements:
+      - name: Unmetered rate limits
+      - name: Dedicated infrastructure
+      - name: SLA guarantee
+      - name: Escalated support
+      - name: Address Metadata endpoint access (Pro Plus+)
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

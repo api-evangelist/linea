@@ -1,0 +1,124 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Linea
+providerId: linea
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: false
+tags:
+  - Blockchain
+  - Layer 2
+  - Ethereum
+  - ZK-EVM
+  - FinOps
+  - FOCUS
+description: >-
+  FinOps view of Linea API consumption. The cost model is mixed: the public JSON-RPC endpoint and
+  Token API are free-at-point-of-use (no subscription fee) but carry IP-level rate limits that
+  push production workloads toward paid private node providers (Infura, Alchemy, QuickNode) billed
+  on their own plans. The Lineascan explorer API follows the Etherscan V2 subscription ladder
+  ($0 Free → $49 Lite → $199 Standard → $299 Advanced → $399 Professional → custom Enterprise),
+  unified across all 50+ supported EVM chains under one API key and billing account. Teams should
+  budget: (1) a Lineascan tier for explorer data needs, (2) a private RPC node plan for
+  transaction submission and eth_* queries at scale, and (3) minor egress/compute for on-chain
+  gas fees when submitting transactions.
+sources:
+  - https://etherscan.io/apis?id=59144
+  - https://docs.linea.build/api/token-api/overview
+  - https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Linea / ConsenSys
+serviceCategory: Blockchain
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Subscription
+    - Usage
+    - Adjustment
+focusColumns:
+  ServiceName: Linea APIs
+  ServiceCategory: Blockchain
+  ProviderName: Linea
+  PublisherName: Linea / ConsenSys
+  InvoiceIssuerName: Etherscan (explorer API) / Node Provider (RPC)
+  BillingCurrency: USD
+  ChargeCategory: Subscription
+meters:
+  - name: explorer_api_subscription
+    description: >-
+      Monthly Lineascan / Etherscan V2 API subscription (Free / Lite / Standard / Advanced /
+      Professional / Enterprise) governing rate limits and daily call quotas for the explorer API.
+    unit: month
+    aggregation: sum
+    dimensions:
+      - api_key
+      - plan_tier
+
+  - name: rpc_node_subscription
+    description: >-
+      Monthly subscription to a private Linea RPC node provider (Infura, Alchemy, QuickNode,
+      Chainstack, Dwellir) for production JSON-RPC access. Billed by the node provider, not
+      directly by Linea.
+    unit: month
+    aggregation: sum
+    dimensions:
+      - provider
+      - plan_tier
+
+  - name: token_api_requests
+    description: >-
+      Token REST API calls consumed at token-api.linea.build. Currently free; tracked for
+      capacity planning against the 60 req/min per-IP limit.
+    unit: request
+    aggregation: count
+    dimensions:
+      - endpoint
+      - ip_address
+
+  - name: on_chain_gas_fees
+    description: >-
+      ETH gas fees paid when submitting transactions to Linea Mainnet. Denominated in ETH
+      and converted to USD for FinOps reporting. Includes L2 execution cost and L1
+      finalization component.
+    unit: gwei
+    aggregation: sum
+    dimensions:
+      - contract_address
+      - transaction_type
+
+principles:
+  - name: Visibility
+    description: >-
+      Tag each Lineascan API key and private RPC endpoint to a single owning workload or team.
+      Separate keys per service enable accurate usage attribution and quota isolation.
+  - name: Allocation
+    description: >-
+      Allocate Lineascan subscription cost to the products consuming explorer data. Allocate
+      private RPC costs to the workloads making RPC calls. Track on-chain gas separately as
+      a transaction cost line item.
+  - name: Optimization
+    description: >-
+      Right-size the Lineascan tier based on peak calls/second and daily volume. Cache Token API
+      responses to stay within the 60 req/min free limit. For RPC, choose the cheapest node
+      provider tier that meets your p99 latency and throughput requirements; avoid the public
+      RPC in production.
+  - name: Accountability
+    description: >-
+      Assign a billing owner to the Lineascan account and to each private RPC provider
+      subscription. Review at monthly renewal; cancel unused API keys promptly.
+  - name: Forecasting
+    description: >-
+      Model explorer API cost as a step function at the Lite/Standard/Advanced/Professional
+      boundaries. Forecast RPC costs based on transaction volume and read-call frequency.
+      On-chain gas is variable; use linea_estimateGas before submitting to bound per-transaction cost.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
