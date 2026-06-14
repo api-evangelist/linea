@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://token-api.linea.build/schemas/token-response",
+  "title": "TokenResponse",
+  "description": "Detailed information about an ERC-20 token on the Linea network",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the token",
+      "example": "USD Coin"
+    },
+    "symbol": {
+      "type": "string",
+      "description": "Symbol of the token",
+      "example": "USDC"
+    },
+    "decimals": {
+      "type": "number",
+      "description": "Number of decimals of the token",
+      "example": 6
+    },
+    "logo": {
+      "type": ["string", "null"],
+      "description": "URL of the token logo",
+      "example": "https://example.com/logo.png"
+    },
+    "contractAddress": {
+      "type": "string",
+      "description": "Contract address of the token",
+      "pattern": "^0x[0-9a-fA-F]{40}$",
+      "example": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff"
+    },
+    "currentPrice": {
+      "type": ["number", "null"],
+      "description": "Current price of the token in USD",
+      "example": 1.0
+    },
+    "priceUpdatedAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Date and time when the price was last updated",
+      "example": "2026-05-19T13:38:03.744Z"
+    },
+    "last24hVariation": {
+      "type": ["number", "null"],
+      "description": "Relative price variation in the last 24 hours (percentage)",
+      "example": 0.01
+    },
+    "isPossibleSpam": {
+      "type": "boolean",
+      "description": "Whether the token is flagged as possible spam",
+      "example": false
+    },
+    "info": {
+      "$ref": "#/definitions/TokenInfo"
+    }
+  },
+  "required": [
+    "name",
+    "symbol",
+    "decimals",
+    "contractAddress",
+    "info"
+  ],
+  "definitions": {
+    "TokenInfo": {
+      "title": "TokenInfo",
+      "description": "Trading statistics for the token",
+      "type": "object",
+      "properties": {
+        "sells": {
+          "type": "number",
+          "description": "Number of sell transactions",
+          "example": 1000
+        },
+        "buys": {
+          "type": "number",
+          "description": "Number of buy transactions",
+          "example": 2000
+        },
+        "swaps": {
+          "type": "number",
+          "description": "Total number of swap transactions",
+          "example": 3000
+        },
+        "fdv": {
+          "type": ["number", "null"],
+          "description": "Fully diluted valuation in USD",
+          "example": 1000000000
+        },
+        "totalSupply": {
+          "type": ["string", "null"],
+          "description": "Total supply of the token (as string to handle large numbers)",
+          "example": "1000000000000"
+        }
+      },
+      "required": ["sells", "buys", "swaps"]
+    }
+  }
+}

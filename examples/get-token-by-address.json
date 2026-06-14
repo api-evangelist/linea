@@ -1,0 +1,28 @@
+{
+  "summary": "Get a single ERC-20 token by contract address",
+  "request": {
+    "method": "GET",
+    "url": "https://token-api.linea.build/tokens/0x176211869cA2b568f2A7D4EE941E073a821EE1ff"
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "decimals": 6,
+      "logo": "https://tokens.1inch.io/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png",
+      "contractAddress": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "currentPrice": 1.0,
+      "priceUpdatedAt": "2026-05-19T13:38:03.744Z",
+      "last24hVariation": 0.001,
+      "isPossibleSpam": false,
+      "info": {
+        "sells": 12400,
+        "buys": 13800,
+        "swaps": 26200,
+        "fdv": 45000000000,
+        "totalSupply": "45000000000000000"
+      }
+    }
+  }
+}

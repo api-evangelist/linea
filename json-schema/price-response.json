@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://token-api.linea.build/schemas/price-response",
+  "title": "PriceResponse",
+  "description": "A single hourly price data point for a token on the Linea network",
+  "type": "object",
+  "properties": {
+    "price": {
+      "type": "number",
+      "description": "Price in USD at the given timestamp",
+      "example": 1.0
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time when the price was recorded",
+      "example": "2026-05-19T13:38:03.784Z"
+    }
+  },
+  "required": ["price", "timestamp"]
+}

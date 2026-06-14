@@ -1,0 +1,63 @@
+{
+  "summary": "List ERC-20 tokens on Linea (first page, secure only)",
+  "request": {
+    "method": "GET",
+    "url": "https://token-api.linea.build/tokens",
+    "parameters": {
+      "page": 1,
+      "limit": 10,
+      "isSecure": true,
+      "sort": "desc",
+      "order": "swaps"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "name": "USD Coin",
+          "symbol": "USDC",
+          "decimals": 6,
+          "logo": "https://tokens.1inch.io/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png",
+          "contractAddress": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+          "currentPrice": 1.0,
+          "priceUpdatedAt": "2026-05-19T13:38:03.744Z",
+          "last24hVariation": 0.001,
+          "isPossibleSpam": false,
+          "info": {
+            "sells": 12400,
+            "buys": 13800,
+            "swaps": 26200,
+            "fdv": 45000000000,
+            "totalSupply": "45000000000000000"
+          }
+        },
+        {
+          "name": "Wrapped Ether",
+          "symbol": "WETH",
+          "decimals": 18,
+          "logo": "https://tokens.1inch.io/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png",
+          "contractAddress": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+          "currentPrice": 3400.50,
+          "priceUpdatedAt": "2026-05-19T13:38:03.744Z",
+          "last24hVariation": -0.02,
+          "isPossibleSpam": false,
+          "info": {
+            "sells": 8900,
+            "buys": 9200,
+            "swaps": 18100,
+            "fdv": null,
+            "totalSupply": "120000000000000000000000000"
+          }
+        }
+      ],
+      "meta": {
+        "page": 1,
+        "limit": 10,
+        "totalItemsCount": 847,
+        "pagesCount": 85
+      }
+    }
+  }
+}

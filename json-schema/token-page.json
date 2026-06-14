@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://token-api.linea.build/schemas/token-page",
+  "title": "TokenPage",
+  "description": "Paginated list of ERC-20 tokens on the Linea network",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of token objects",
+      "items": {
+        "$ref": "token-response.json"
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Pagination metadata",
+      "properties": {
+        "page": {
+          "type": "number",
+          "description": "Current page number",
+          "example": 1
+        },
+        "limit": {
+          "type": "number",
+          "description": "Number of items per page",
+          "example": 50
+        },
+        "totalItemsCount": {
+          "type": "number",
+          "description": "Total number of items across all pages",
+          "example": 250
+        },
+        "pagesCount": {
+          "type": "number",
+          "description": "Total number of pages",
+          "example": 5
+        }
+      },
+      "required": ["page", "limit", "totalItemsCount", "pagesCount"]
+    }
+  },
+  "required": ["data", "meta"]
+}

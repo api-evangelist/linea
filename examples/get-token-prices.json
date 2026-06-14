@@ -1,0 +1,32 @@
+{
+  "summary": "Get 24-hour hourly price history for a single token",
+  "request": {
+    "method": "GET",
+    "url": "https://token-api.linea.build/prices/0x176211869cA2b568f2A7D4EE941E073a821EE1ff"
+  },
+  "response": {
+    "status": 200,
+    "body": [
+      {
+        "price": 0.9998,
+        "timestamp": "2026-05-18T13:00:00.000Z"
+      },
+      {
+        "price": 0.9999,
+        "timestamp": "2026-05-18T14:00:00.000Z"
+      },
+      {
+        "price": 1.0001,
+        "timestamp": "2026-05-18T15:00:00.000Z"
+      },
+      {
+        "price": 1.0002,
+        "timestamp": "2026-05-18T16:00:00.000Z"
+      },
+      {
+        "price": 1.0,
+        "timestamp": "2026-05-19T13:00:00.000Z"
+      }
+    ]
+  }
+}

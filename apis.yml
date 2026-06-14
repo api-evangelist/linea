@@ -78,6 +78,8 @@ apis:
         url: https://docs.linea.build/api/token-api/overview
       - type: APIReference
         url: https://docs.linea.build/api/token-api/reference
+      - type: OpenAPI
+        url: openapi/linea-token-api-openapi.json
 
   - aid: linea:explorer-api
     name: Linea Explorer API (Lineascan / Blockscout)

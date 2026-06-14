@@ -1,0 +1,109 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "linea": "https://linea.build/vocab#",
+    "erc20": "https://eips.ethereum.org/EIPS/eip-20#",
+    "aid": "linea:aid",
+    "name": "name",
+    "description": "description",
+    "url": "url",
+    "image": "image",
+    "provider": {
+      "@id": "linea:provider",
+      "@type": "@id"
+    },
+    "token": {
+      "@id": "linea:Token",
+      "@type": "@id"
+    },
+    "contractAddress": {
+      "@id": "linea:contractAddress",
+      "@type": "linea:EthereumAddress"
+    },
+    "symbol": {
+      "@id": "erc20:symbol"
+    },
+    "decimals": {
+      "@id": "erc20:decimals",
+      "@type": "xsd:integer"
+    },
+    "totalSupply": {
+      "@id": "erc20:totalSupply"
+    },
+    "currentPrice": {
+      "@id": "linea:currentPrice",
+      "@type": "xsd:decimal"
+    },
+    "priceUpdatedAt": {
+      "@id": "linea:priceUpdatedAt",
+      "@type": "xsd:dateTime"
+    },
+    "last24hVariation": {
+      "@id": "linea:last24hVariation",
+      "@type": "xsd:decimal"
+    },
+    "fdv": {
+      "@id": "linea:fullyDilutedValuation",
+      "@type": "xsd:decimal"
+    },
+    "isPossibleSpam": {
+      "@id": "linea:isPossibleSpam",
+      "@type": "xsd:boolean"
+    },
+    "sells": {
+      "@id": "linea:sellCount",
+      "@type": "xsd:integer"
+    },
+    "buys": {
+      "@id": "linea:buyCount",
+      "@type": "xsd:integer"
+    },
+    "swaps": {
+      "@id": "linea:swapCount",
+      "@type": "xsd:integer"
+    },
+    "price": {
+      "@id": "linea:tokenPrice",
+      "@type": "xsd:decimal"
+    },
+    "timestamp": {
+      "@id": "linea:priceTimestamp",
+      "@type": "xsd:dateTime"
+    },
+    "chainId": {
+      "@id": "linea:chainId",
+      "@type": "xsd:integer"
+    },
+    "network": {
+      "@id": "linea:network"
+    },
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "https://linea.build",
+      "@type": "Organization",
+      "name": "Linea",
+      "description": "ConsenSys ZK-EVM Layer 2 network built on Ethereum",
+      "url": "https://linea.build",
+      "linea:chainId": 59144,
+      "linea:testnetChainId": 59141,
+      "linea:rpcEndpoint": "https://rpc.linea.build",
+      "linea:tokenApiEndpoint": "https://token-api.linea.build",
+      "linea:explorerEndpoint": "https://lineascan.build"
+    },
+    {
+      "@id": "https://token-api.linea.build",
+      "@type": "WebAPI",
+      "name": "Linea Token API",
+      "description": "REST API for ERC-20 token data, prices, and trading statistics on the Linea network",
+      "url": "https://docs.linea.build/api/token-api/overview",
+      "provider": {
+        "@id": "https://linea.build"
+      },
+      "linea:openApiSpec": "https://token-api.linea.build/docs-json",
+      "linea:rateLimitPerSecond": 2,
+      "linea:rateLimitPerMinute": 60
+    }
+  ]
+}
