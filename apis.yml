@@ -1,7 +1,7 @@
 aid: linea
 name: Linea
 url: https://raw.githubusercontent.com/api-evangelist/linea/refs/heads/main/apis.yml
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 description: 'Linea is ConsenSys'' ZK-EVM Layer 2 network built on Ethereum, offering
   low fees, fast finality, and full EVM compatibility. Developers access on-chain
   data through three complementary API surfaces: a public JSON-RPC endpoint (rpc.linea.build)
