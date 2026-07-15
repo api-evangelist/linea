@@ -117,6 +117,8 @@ apis:
   - url: graphql/linea-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/linea-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/linea-vulnerability-disclosure.yml
 - type: DomainSecurity
