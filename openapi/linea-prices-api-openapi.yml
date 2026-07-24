@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: Linea Token Prices API
+  description: API to access token information on Linea, including prices, traded tokens and top movers over 24h.
+  version: 0.1.0
+  contact: {}
+servers:
+- url: https://token-api.linea.build
+  description: Linea Token API production server
+tags:
+- name: Prices
+  description: Token price history
+paths:
+  /prices/{contractAddress}:
+    get:
+      description: Retrieve hourly prices over the last 24 hours for a single token
+      operationId: PricesController_findOne
+      parameters:
+      - name: contractAddress
+        required: true
+        in: path
+        description: The Ethereum contract address of the token
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved prices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PriceResponseDto'
+        '400':
+          description: Invalid contract address format
+        '404':
+          description: Token not found
+      summary: Get hourly prices for a token
+      tags:
+      - Prices
+  /prices:
+    get:
+      description: Retrieve hourly prices over the last 24 hours for multiple tokens
+      operationId: PricesController_findMany
+      parameters:
+      - name: addresses
+        required: true
+        in: query
+        description: List of token contract addresses (comma-separated, max 100)
+        schema:
+          maxItems: 100
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved prices
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Map of contract address to price history array
+      summary: Get hourly prices for multiple tokens
+      tags:
+      - Prices
+components:
+  schemas:
+    PriceResponseDto:
+      type: object
+      properties:
+        price:
+          type: number
+          example: 1
+          description: Price in USD at a given date and time
+        timestamp:
+          format: date-time
+          type: string
+          example: '2026-05-19T13:38:03.784Z'
+          description: Date and time when the price was fetched
+      required:
+      - price
+      - timestamp
