@@ -1,0 +1,16 @@
+{
+  "provider": "linea",
+  "sources": [
+    "linea-prices-api-openapi.yml",
+    "linea-tokens-api-openapi.yml"
+  ],
+  "outputs": [
+    "linea-prices-api-openapi.yml",
+    "linea-tokens-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
