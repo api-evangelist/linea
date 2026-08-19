@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Linea Token Prices API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Prices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get hourly prices for a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://token-api.linea.build/prices/:contractAddress",
+            "params": [
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "path",
+                "description": "The Ethereum contract address of the token"
+              }
+            ]
+          },
+          "docs": "Retrieve hourly prices over the last 24 hours for a single token"
+        },
+        {
+          "info": {
+            "name": "Get hourly prices for multiple tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://token-api.linea.build/prices",
+            "params": [
+              {
+                "name": "addresses",
+                "value": "",
+                "type": "query",
+                "description": "List of token contract addresses (comma-separated, max 100)"
+              }
+            ]
+          },
+          "docs": "Retrieve hourly prices over the last 24 hours for multiple tokens"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Linea Token Prices Tokens API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://token-api.linea.build/tokens",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "isSecure",
+                "value": "",
+                "type": "query",
+                "description": "Filter tokens to secure tokens only"
+              },
+              {
+                "name": "addresses",
+                "value": "",
+                "type": "query",
+                "description": "List of token contract addresses (comma-separated, max 100)"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order by column"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction (asc or desc)"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of tokens based on the provided query parameters"
+        },
+        {
+          "info": {
+            "name": "Get token by contract address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://token-api.linea.build/tokens/:contractAddress",
+            "params": [
+              {
+                "name": "contractAddress",
+                "value": "",
+                "type": "path",
+                "description": "The Ethereum contract address of the token"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information about a specific token using its contract address"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,278 @@
+{
+  "item": [
+    {
+      "id": "93cbde28-b704-47e0-8d67-e91a01dcea45",
+      "name": "Prices",
+      "description": {
+        "content": "Token price history",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fe4a6526-7266-4cca-9d98-db08192e7111",
+          "name": "Get hourly prices for a token",
+          "request": {
+            "name": "Get hourly prices for a token",
+            "description": {
+              "content": "Retrieve hourly prices over the last 24 hours for a single token",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "prices",
+                ":contractAddress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "contractAddress",
+                  "description": "(Required) The Ethereum contract address of the token"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c754b5e-b040-45c4-9ee7-a1d472e6ee7e",
+              "name": "Successfully retrieved prices",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prices",
+                    ":contractAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contractAddress",
+                      "description": "(Required) The Ethereum contract address of the token"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"price\": 1,\n    \"timestamp\": \"2026-05-19T13:38:03.784Z\"\n  },\n  {\n    \"price\": 1,\n    \"timestamp\": \"2026-05-19T13:38:03.784Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d4555f5-7561-4a84-aba2-cdb972a033d7",
+              "name": "Invalid contract address format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prices",
+                    ":contractAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contractAddress",
+                      "description": "(Required) The Ethereum contract address of the token"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "359ece34-7eaa-4701-a55d-f0c15fdc875d",
+              "name": "Token not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prices",
+                    ":contractAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contractAddress",
+                      "description": "(Required) The Ethereum contract address of the token"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71703171-0020-40df-99a7-5cdacfadc2ca",
+          "name": "Get hourly prices for multiple tokens",
+          "request": {
+            "name": "Get hourly prices for multiple tokens",
+            "description": {
+              "content": "Retrieve hourly prices over the last 24 hours for multiple tokens",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "prices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "addresses",
+                  "value": "<string>",
+                  "description": "(Required) List of token contract addresses (comma-separated, max 100)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d3785da-ad24-4409-98be-8b7453d1572f",
+              "name": "Successfully retrieved prices",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://token-api.linea.build",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a562357e-c329-43e5-9b33-a75622a36999",
+    "name": "Linea Token Prices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API to access token information on Linea, including prices, traded tokens and top movers over 24h.",
+      "type": "text/plain"
+    }
+  }
+}

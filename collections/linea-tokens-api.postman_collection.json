@@ -1,0 +1,328 @@
+{
+  "item": [
+    {
+      "id": "a6235042-103a-4897-b48e-99502b7d006a",
+      "name": "Tokens",
+      "description": {
+        "content": "ERC-20 token metadata and information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "833fd7e2-9043-451b-892f-4cbcd5753915",
+          "name": "Get tokens",
+          "request": {
+            "name": "Get tokens",
+            "description": {
+              "content": "Retrieve a list of tokens based on the provided query parameters",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "isSecure",
+                  "value": "<boolean>",
+                  "description": "Filter tokens to secure tokens only"
+                },
+                {
+                  "disabled": false,
+                  "key": "addresses",
+                  "value": "<string>",
+                  "description": "List of token contract addresses (comma-separated, max 100)"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Order by column"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort direction (asc or desc)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e90a1e71-393d-431e-b5fb-ffb8c12d87cd",
+              "name": "Successfully retrieved tokens",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "isSecure",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "addresses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"name\": \"Token name\",\n      \"symbol\": \"TKN\",\n      \"decimals\": 18,\n      \"logo\": \"https://example.com/logo.png\",\n      \"contractAddress\": \"0x1111111111111111111111111111111111111111\",\n      \"currentPrice\": 1000,\n      \"priceUpdatedAt\": \"2026-05-19T13:38:03.744Z\",\n      \"last24hVariation\": 0,\n      \"info\": {\n        \"sells\": 1000,\n        \"buys\": 2000,\n        \"swaps\": 3000,\n        \"fdv\": 100000,\n        \"totalSupply\": \"1000000\"\n      },\n      \"isPossibleSpam\": true\n    },\n    {\n      \"name\": \"Token name\",\n      \"symbol\": \"TKN\",\n      \"decimals\": 18,\n      \"logo\": \"https://example.com/logo.png\",\n      \"contractAddress\": \"0x1111111111111111111111111111111111111111\",\n      \"currentPrice\": 1000,\n      \"priceUpdatedAt\": \"2026-05-19T13:38:03.744Z\",\n      \"last24hVariation\": 0,\n      \"info\": {\n        \"sells\": 1000,\n        \"buys\": 2000,\n        \"swaps\": 3000,\n        \"fdv\": 100000,\n        \"totalSupply\": \"1000000\"\n      },\n      \"isPossibleSpam\": true\n    }\n  ],\n  \"meta\": {\n    \"page\": 7725.875319480845,\n    \"limit\": 1877.0303113554332,\n    \"totalItemsCount\": 3762.2834492695924,\n    \"pagesCount\": 8474.808742318824\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff180a5e-3d7d-4f01-a1e3-6a96ca3b362e",
+          "name": "Get token by contract address",
+          "request": {
+            "name": "Get token by contract address",
+            "description": {
+              "content": "Retrieve detailed information about a specific token using its contract address",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens",
+                ":contractAddress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "contractAddress",
+                  "description": "(Required) The Ethereum contract address of the token"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "08fe579e-3414-41d2-9566-4bdcc0ea644c",
+              "name": "Successfully retrieved token information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":contractAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contractAddress",
+                      "description": "(Required) The Ethereum contract address of the token"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Token name\",\n  \"symbol\": \"TKN\",\n  \"decimals\": 18,\n  \"logo\": \"https://example.com/logo.png\",\n  \"contractAddress\": \"0x1111111111111111111111111111111111111111\",\n  \"currentPrice\": 1000,\n  \"priceUpdatedAt\": \"2026-05-19T13:38:03.744Z\",\n  \"last24hVariation\": 0,\n  \"info\": {\n    \"sells\": 1000,\n    \"buys\": 2000,\n    \"swaps\": 3000,\n    \"fdv\": 100000,\n    \"totalSupply\": \"1000000\"\n  },\n  \"isPossibleSpam\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efaab732-9b04-4c9c-85a0-13d32de57b29",
+              "name": "Invalid contract address format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":contractAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contractAddress",
+                      "description": "(Required) The Ethereum contract address of the token"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "45fe1b15-feaa-4b40-8601-1bc684fc81b5",
+              "name": "Token not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":contractAddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contractAddress",
+                      "description": "(Required) The Ethereum contract address of the token"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://token-api.linea.build",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0e347207-14b3-4ec5-9ed6-0ac2ea7ee415",
+    "name": "Linea Token Prices Tokens API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API to access token information on Linea, including prices, traded tokens and top movers over 24h.",
+      "type": "text/plain"
+    }
+  }
+}
