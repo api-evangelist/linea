@@ -22,7 +22,7 @@ description: 'Linea is ConsenSys'' ZK-EVM Layer 2 network built on Ethereum, off
   and price history, and the Lineascan block explorer API (Etherscan V2-compatible)
   for transactions, blocks, addresses, token transfers, event logs, and contract verification
   across Linea Mainnet (chainId 59144) and Sepolia testnet (chainId 59141).'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 created: '2026-06-13'
 modified: '2026-06-13'
 x-source: public-research
