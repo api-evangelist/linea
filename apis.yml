@@ -34,6 +34,17 @@ tags:
 - Blockchain
 - Ethereum
 - Layer 2
+- zkEVM
+- Web3
+- DeFi
+- Smart Contracts
+- JSON-RPC
+- Tokens
+- ConsenSys
+tags_raw:
+- Blockchain
+- Ethereum
+- Layer 2
 - ZK-EVM
 - Web3
 - DeFi
@@ -81,6 +92,15 @@ apis:
   humanURL: https://lineascan.build/apis
   baseURL: https://api.lineascan.build/api
   tags:
+  - Explorer
+  - Transaction
+  - Blocks
+  - Account
+  - Tokens
+  - Contracts
+  - Event Logs
+  - Statistics
+  tags_raw:
   - Explorer
   - Transactions
   - Blocks
