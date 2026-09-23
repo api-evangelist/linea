@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Linea Token Prices Tokens API
+  title: Linea Token Tokens API
   description: API to access token information on Linea, including prices, traded tokens and top movers over 24h.
   version: 0.1.0
   contact: {}
@@ -119,6 +119,26 @@ components:
       - isPossibleSpam
       - totalSupply
       - fdv
+    PageMetaDto:
+      type: object
+      properties:
+        page:
+          type: number
+          description: Current page number
+        limit:
+          type: number
+          description: Number of items per page
+        totalItemsCount:
+          type: number
+          description: Total number of items
+        pagesCount:
+          type: number
+          description: Total number of pages
+      required:
+      - page
+      - limit
+      - totalItemsCount
+      - pagesCount
     TokenResponseDto:
       type: object
       properties:
@@ -213,23 +233,3 @@ components:
       - swaps
       - fdv
       - totalSupply
-    PageMetaDto:
-      type: object
-      properties:
-        page:
-          type: number
-          description: Current page number
-        limit:
-          type: number
-          description: Number of items per page
-        totalItemsCount:
-          type: number
-          description: Total number of items
-        pagesCount:
-          type: number
-          description: Total number of pages
-      required:
-      - page
-      - limit
-      - totalItemsCount
-      - pagesCount
