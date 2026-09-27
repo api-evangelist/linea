@@ -3,15 +3,19 @@ name: Linea
 url: https://raw.githubusercontent.com/api-evangelist/linea/refs/heads/main/apis.yml
 deliveryModel:
   model: saas
-  open_source: false
+  license_evidence:
+    not_product:
+    - consensys/linea-sdk
+  open_source: unknown
   commercial: true
   callable_host: true
   label: Hosted service · you call their endpoint
-  confidence: high
+  confidence: low
   source:
   - openapi
   - pricing
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -161,6 +165,38 @@ apis:
     url: https://docs.linea.build/api/token-api/overview
   - type: APIReference
     url: https://docs.linea.build/api/token-api/reference
+- aid: linea:sepolia-rpc
+  name: Linea Sepolia Testnet JSON-RPC
+  description: Public JSON-RPC endpoint for the Linea Sepolia testnet (chain ID 59141), used for application
+    development, prover-changes testing, and bridge integration before deploying to mainnet.
+  humanURL: https://docs.linea.build/get-started/build/network-info
+  baseURL: https://rpc.sepolia.linea.build
+  tags:
+  - JSON-RPC
+  - Testnet
+  - Sepolia
+  properties:
+  - type: Documentation
+    url: https://docs.linea.build/get-started/build/network-info
+  - type: APIReference
+    url: https://docs.linea.build/api
+- aid: linea:linea-sdk
+  name: Linea SDK
+  description: Official TypeScript SDK for interacting with Linea — message-service helpers, bridge claim
+    flows, and L1/L2 utility methods used by app developers and bridge integrators.
+  humanURL: https://docs.linea.build/api/linea-sdk
+  baseURL: https://github.com/Consensys/linea-sdk
+  tags:
+  - SDK
+  - TypeScript
+  - Bridge
+  properties:
+  - type: Documentation
+    url: https://docs.linea.build/api/linea-sdk
+  - type: Repository
+    url: https://github.com/Consensys/linea-sdk
+  - type: Package
+    url: https://www.npmjs.com/package/@consensys/linea-sdk
 common:
 - type: Website
   url: https://linea.build
@@ -255,6 +291,10 @@ common:
     description: Standard EVM development frameworks connect to Linea RPC without modification.
   - name: Chainlink and Pyth
     description: Price oracles deployed on Linea provide on-chain price feeds for DeFi protocols.
+- type: APIReference
+  url: https://docs.linea.build/api
+- type: Blog
+  url: https://linea.build/blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
