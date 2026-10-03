@@ -100,18 +100,26 @@ paths:
       - Tokens
 components:
   schemas:
-    TokenPageDto:
+    PageMetaDto:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TokenResponseDto'
-        meta:
-          $ref: '#/components/schemas/PageMetaDto'
+        page:
+          type: number
+          description: Current page number
+        limit:
+          type: number
+          description: Number of items per page
+        totalItemsCount:
+          type: number
+          description: Total number of items
+        pagesCount:
+          type: number
+          description: Total number of pages
       required:
-      - data
-      - meta
+      - page
+      - limit
+      - totalItemsCount
+      - pagesCount
     TokenInfoResponseDto:
       type: object
       properties:
@@ -141,6 +149,37 @@ components:
       - swaps
       - fdv
       - totalSupply
+    TokenPageDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenResponseDto'
+        meta:
+          $ref: '#/components/schemas/PageMetaDto'
+      required:
+      - data
+      - meta
+    OrderColumns:
+      type: string
+      enum:
+      - name
+      - symbol
+      - decimals
+      - contractAddress
+      - currentPrice
+      - priceUpdatedAt
+      - createdAt
+      - updatedAt
+      - last24hVariation
+      - last24hVariationAbsolute
+      - sells
+      - buys
+      - swaps
+      - isPossibleSpam
+      - totalSupply
+      - fdv
     TokenResponseDto:
       type: object
       properties:
@@ -194,42 +233,3 @@ components:
       - priceUpdatedAt
       - last24hVariation
       - info
-    PageMetaDto:
-      type: object
-      properties:
-        page:
-          type: number
-          description: Current page number
-        limit:
-          type: number
-          description: Number of items per page
-        totalItemsCount:
-          type: number
-          description: Total number of items
-        pagesCount:
-          type: number
-          description: Total number of pages
-      required:
-      - page
-      - limit
-      - totalItemsCount
-      - pagesCount
-    OrderColumns:
-      type: string
-      enum:
-      - name
-      - symbol
-      - decimals
-      - contractAddress
-      - currentPrice
-      - priceUpdatedAt
-      - createdAt
-      - updatedAt
-      - last24hVariation
-      - last24hVariationAbsolute
-      - sells
-      - buys
-      - swaps
-      - isPossibleSpam
-      - totalSupply
-      - fdv
