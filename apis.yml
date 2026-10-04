@@ -45,6 +45,10 @@ x-category: Blockchain
 x-type: company
 x-tier: 2
 x-tier-reason: pipeline-enriched
+x-docs-platform: docusaurus
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
+x-docs-hosting: vercel
 tags:
 - Blockchain
 - Ethereum
