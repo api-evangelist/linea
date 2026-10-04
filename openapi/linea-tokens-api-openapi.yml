@@ -100,55 +100,6 @@ paths:
       - Tokens
 components:
   schemas:
-    PageMetaDto:
-      type: object
-      properties:
-        page:
-          type: number
-          description: Current page number
-        limit:
-          type: number
-          description: Number of items per page
-        totalItemsCount:
-          type: number
-          description: Total number of items
-        pagesCount:
-          type: number
-          description: Total number of pages
-      required:
-      - page
-      - limit
-      - totalItemsCount
-      - pagesCount
-    TokenInfoResponseDto:
-      type: object
-      properties:
-        sells:
-          type: number
-          example: 1000
-          description: Number of sells
-        buys:
-          type: number
-          example: 2000
-          description: Number of buys
-        swaps:
-          type: number
-          example: 3000
-          description: Number of total swaps
-        fdv:
-          type: number
-          example: 100000
-          description: Fully diluted valuation (FDV)
-        totalSupply:
-          type: string
-          example: '1000000'
-          description: Total supply of the token
-      required:
-      - sells
-      - buys
-      - swaps
-      - fdv
-      - totalSupply
     TokenPageDto:
       type: object
       properties:
@@ -161,25 +112,6 @@ components:
       required:
       - data
       - meta
-    OrderColumns:
-      type: string
-      enum:
-      - name
-      - symbol
-      - decimals
-      - contractAddress
-      - currentPrice
-      - priceUpdatedAt
-      - createdAt
-      - updatedAt
-      - last24hVariation
-      - last24hVariationAbsolute
-      - sells
-      - buys
-      - swaps
-      - isPossibleSpam
-      - totalSupply
-      - fdv
     TokenResponseDto:
       type: object
       properties:
@@ -233,3 +165,71 @@ components:
       - priceUpdatedAt
       - last24hVariation
       - info
+    OrderColumns:
+      type: string
+      enum:
+      - name
+      - symbol
+      - decimals
+      - contractAddress
+      - currentPrice
+      - priceUpdatedAt
+      - createdAt
+      - updatedAt
+      - last24hVariation
+      - last24hVariationAbsolute
+      - sells
+      - buys
+      - swaps
+      - isPossibleSpam
+      - totalSupply
+      - fdv
+    TokenInfoResponseDto:
+      type: object
+      properties:
+        sells:
+          type: number
+          example: 1000
+          description: Number of sells
+        buys:
+          type: number
+          example: 2000
+          description: Number of buys
+        swaps:
+          type: number
+          example: 3000
+          description: Number of total swaps
+        fdv:
+          type: number
+          example: 100000
+          description: Fully diluted valuation (FDV)
+        totalSupply:
+          type: string
+          example: '1000000'
+          description: Total supply of the token
+      required:
+      - sells
+      - buys
+      - swaps
+      - fdv
+      - totalSupply
+    PageMetaDto:
+      type: object
+      properties:
+        page:
+          type: number
+          description: Current page number
+        limit:
+          type: number
+          description: Number of items per page
+        totalItemsCount:
+          type: number
+          description: Total number of items
+        pagesCount:
+          type: number
+          description: Total number of pages
+      required:
+      - page
+      - limit
+      - totalItemsCount
+      - pagesCount
