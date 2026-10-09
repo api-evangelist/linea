@@ -1,3 +1,8 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (dated 2026-06-13 by the file itself), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
+generated: '2026-06-13'
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
@@ -328,3 +333,95 @@ plans:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units:
+  - negotiated
+  - period
+  - rate
+  plans:
+  - name: Public RPC (Free)
+    access: freemium
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month
+  - name: Token API (Free)
+    access: freemium
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    - rate
+    periods:
+    - minute
+    - month
+    - second
+  - name: Lineascan Explorer API Free
+    access: freemium
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    - rate
+    periods:
+    - day
+    - month
+    - second
+  - name: Lineascan Explorer API Lite
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - period
+    - rate
+    periods:
+    - day
+    - month
+    - second
+  - name: Lineascan Explorer API Standard
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - period
+    - rate
+    periods:
+    - day
+    - month
+    - second
+  - name: Lineascan Explorer API Advanced
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - period
+    - rate
+    periods:
+    - day
+    - month
+    - second
+  - name: Lineascan Explorer API Professional
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - period
+    - rate
+    periods:
+    - day
+    - month
+    - second
+  - name: Lineascan Explorer API Enterprise
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - term
