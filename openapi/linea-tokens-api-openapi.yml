@@ -100,18 +100,6 @@ paths:
       - Tokens
 components:
   schemas:
-    TokenPageDto:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TokenResponseDto'
-        meta:
-          $ref: '#/components/schemas/PageMetaDto'
-      required:
-      - data
-      - meta
     TokenResponseDto:
       type: object
       properties:
@@ -165,25 +153,6 @@ components:
       - priceUpdatedAt
       - last24hVariation
       - info
-    OrderColumns:
-      type: string
-      enum:
-      - name
-      - symbol
-      - decimals
-      - contractAddress
-      - currentPrice
-      - priceUpdatedAt
-      - createdAt
-      - updatedAt
-      - last24hVariation
-      - last24hVariationAbsolute
-      - sells
-      - buys
-      - swaps
-      - isPossibleSpam
-      - totalSupply
-      - fdv
     TokenInfoResponseDto:
       type: object
       properties:
@@ -213,6 +182,25 @@ components:
       - swaps
       - fdv
       - totalSupply
+    OrderColumns:
+      type: string
+      enum:
+      - name
+      - symbol
+      - decimals
+      - contractAddress
+      - currentPrice
+      - priceUpdatedAt
+      - createdAt
+      - updatedAt
+      - last24hVariation
+      - last24hVariationAbsolute
+      - sells
+      - buys
+      - swaps
+      - isPossibleSpam
+      - totalSupply
+      - fdv
     PageMetaDto:
       type: object
       properties:
@@ -233,3 +221,15 @@ components:
       - limit
       - totalItemsCount
       - pagesCount
+    TokenPageDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenResponseDto'
+        meta:
+          $ref: '#/components/schemas/PageMetaDto'
+      required:
+      - data
+      - meta
