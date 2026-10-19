@@ -4,12 +4,9 @@ info:
   description: API to access token information on Linea, including prices, traded tokens and top movers over 24h.
   version: 0.1.0
   contact: {}
-servers:
-- url: https://token-api.linea.build
-  description: Linea Token API production server
+servers: []
 tags:
 - name: Tokens
-  description: ERC-20 token metadata and information
 paths:
   /tokens:
     get:
@@ -37,13 +34,13 @@ paths:
       - name: isSecure
         required: false
         in: query
-        description: Filter tokens to secure tokens only
+        description: Filter secure tokens (minimum swap activity and market cap)
         schema:
           type: boolean
       - name: addresses
         required: false
         in: query
-        description: List of token contract addresses (comma-separated, max 100)
+        description: List of tokens addresses (comma-separated)
         schema:
           maxItems: 100
           type: string
@@ -56,7 +53,7 @@ paths:
       - name: sort
         required: false
         in: query
-        description: Sort direction (asc or desc)
+        description: Order sort (asc, desc)
         schema:
           type: string
           enum:
@@ -98,61 +95,100 @@ paths:
       summary: Get token by contract address
       tags:
       - Tokens
+  /tokens/{contractAddress}/supply/total:
+    get:
+      description: Returns the LINEA total supply (post-burn). Defaults to a plain-text number; pass ?format=json for a structured object.
+      operationId: LineaSupplyController_getTotalSupply
+      parameters:
+      - name: contractAddress
+        required: true
+        in: path
+        description: The LINEA token contract address
+        schema:
+          example: '0x1789e0043623282D5DCc7F213d703C6D8BAfBB04'
+          type: string
+      - name: format
+        required: false
+        in: query
+        description: Response format. "raw" returns a single number as plain text; "json" returns a structured object.
+        schema:
+          enum:
+          - raw
+          - json
+          type: string
+      responses:
+        '200':
+          description: Total supply — plain-text number by default, or a structured object with ?format=json
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '71593816498.833170312930582115'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TotalSupplyResponseDto'
+        '404':
+          description: Supply data is only available for the LINEA token
+        '503':
+          description: Supply data is not available yet
+      summary: Get LINEA total supply
+      tags:
+      - Tokens
+  /tokens/{contractAddress}/supply/circulating:
+    get:
+      description: Returns the LINEA circulating supply. Defaults to a plain-text number; pass ?format=json for a structured object including the excluded-wallet breakdown.
+      operationId: LineaSupplyController_getCirculatingSupply
+      parameters:
+      - name: contractAddress
+        required: true
+        in: path
+        description: The LINEA token contract address
+        schema:
+          example: '0x1789e0043623282D5DCc7F213d703C6D8BAfBB04'
+          type: string
+      - name: format
+        required: false
+        in: query
+        description: Response format. "raw" returns a single number as plain text; "json" returns a structured object.
+        schema:
+          enum:
+          - raw
+          - json
+          type: string
+      responses:
+        '200':
+          description: Circulating supply — plain-text number by default, or a structured object with ?format=json
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '24169536844.304868484915986684'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CirculatingSupplyResponseDto'
+        '404':
+          description: Supply data is only available for the LINEA token
+        '503':
+          description: Supply data is not available yet
+      summary: Get LINEA circulating supply
+      tags:
+      - Tokens
 components:
   schemas:
-    TokenResponseDto:
+    TotalSupplyResponseDto:
       type: object
       properties:
-        name:
+        totalSupply:
           type: string
-          example: Token name
-          description: Name of the token
-        symbol:
-          type: string
-          example: TKN
-          description: Symbol of the token
-        decimals:
-          type: number
-          example: 18
-          description: Number of decimals of the token
-        logo:
-          type: string
-          example: https://example.com/logo.png
-          description: URL of the token logo
-        contractAddress:
-          type: string
-          example: '0x1111111111111111111111111111111111111111'
-          description: Contract address of the token
-        currentPrice:
-          type: number
-          example: 1000
-          description: Current price of the token in USD
-        priceUpdatedAt:
-          type: string
+          example: '71593816498.833170312930582115'
+          description: Total supply (post-burn) in LINEA, decimal-adjusted to the token decimals (18)
+        lastUpdated:
           format: date-time
-          example: '2026-05-19T13:38:03.744Z'
-          description: Date and time when the price was last updated
-        last24hVariation:
-          type: number
-          example: 0
-          description: Price variation in the last 24 hours
-        isPossibleSpam:
-          type: boolean
-          description: Whether the token is flagged as possible spam
-        info:
-          description: Token trading information
-          allOf:
-          - $ref: '#/components/schemas/TokenInfoResponseDto'
+          type: string
+          description: Time the cached figure was last refreshed
       required:
-      - name
-      - symbol
-      - decimals
-      - logo
-      - contractAddress
-      - currentPrice
-      - priceUpdatedAt
-      - last24hVariation
-      - info
+      - totalSupply
+      - lastUpdated
     TokenInfoResponseDto:
       type: object
       properties:
@@ -169,11 +205,11 @@ components:
           example: 3000
           description: Number of total swaps
         fdv:
-          type: number
+          type: object
           example: 100000
           description: Fully diluted valuation (FDV)
         totalSupply:
-          type: string
+          type: object
           example: '1000000'
           description: Total supply of the token
       required:
@@ -182,6 +218,43 @@ components:
       - swaps
       - fdv
       - totalSupply
+    TokenPageDto:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenResponseDto'
+        meta:
+          $ref: '#/components/schemas/PageMetaDto'
+      required:
+      - data
+      - meta
+    CirculatingSupplyResponseDto:
+      type: object
+      properties:
+        circulatingSupply:
+          type: string
+          example: '24169536844.304868484915986684'
+          description: Circulating supply in LINEA, decimal-adjusted to the token decimals (18)
+        totalSupply:
+          type: string
+          example: '71593816498.833170312930582115'
+          description: Total supply (post-burn) in LINEA, decimal-adjusted to the token decimals (18)
+        lastUpdated:
+          format: date-time
+          type: string
+          description: Time the cached figure was last refreshed
+        excludedWallets:
+          description: Wallets excluded from circulating supply
+          type: array
+          items:
+            $ref: '#/components/schemas/ExcludedWalletResponseDto'
+      required:
+      - circulatingSupply
+      - totalSupply
+      - lastUpdated
+      - excludedWallets
     OrderColumns:
       type: string
       enum:
@@ -198,9 +271,81 @@ components:
       - sells
       - buys
       - swaps
-      - isPossibleSpam
       - totalSupply
       - fdv
+    TokenResponseDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Token name
+          description: Name of the token
+        symbol:
+          type: string
+          example: Token symbol
+          description: Symbol of the token
+        decimals:
+          type: number
+          example: 18
+          description: Number of decimals of the token
+        logo:
+          type: object
+          example: https://example.com/logo.png
+          description: URL of the token logo
+        contractAddress:
+          type: string
+          example: '0x1111111111111111111111111111111111111111'
+          description: Contract address of the token
+        currentPrice:
+          type: object
+          example: 1000
+          description: Current price of the token
+        priceUpdatedAt:
+          type: object
+          example: 2026-09-17 12:58:21.566000+00:00
+          description: Date and time when the price was last updated
+        last24hVariation:
+          type: object
+          example: 0
+          description: Price variation in the last 24 hours
+        info:
+          description: Token information
+          allOf:
+          - $ref: '#/components/schemas/TokenInfoResponseDto'
+      required:
+      - name
+      - symbol
+      - decimals
+      - logo
+      - contractAddress
+      - currentPrice
+      - priceUpdatedAt
+      - last24hVariation
+      - info
+    ExcludedWalletResponseDto:
+      type: object
+      properties:
+        address:
+          type: string
+          example: '0x8156b28cA956C3a8BAb86e1D38D8648d58CD23ec'
+          description: Wallet address on Linea L2
+        label:
+          type: string
+          example: Consensys Treasury
+          description: Human-readable wallet label
+        status:
+          type: string
+          example: Locked
+          description: Wallet status
+        balance:
+          type: string
+          example: '10801498500'
+          description: Wallet balance in LINEA, decimal-adjusted to the token decimals (18)
+      required:
+      - address
+      - label
+      - status
+      - balance
     PageMetaDto:
       type: object
       properties:
@@ -221,15 +366,3 @@ components:
       - limit
       - totalItemsCount
       - pagesCount
-    TokenPageDto:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/TokenResponseDto'
-        meta:
-          $ref: '#/components/schemas/PageMetaDto'
-      required:
-      - data
-      - meta

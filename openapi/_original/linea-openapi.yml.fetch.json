@@ -1,0 +1,12 @@
+{
+ "url": "https://token-api.linea.build/docs-yaml",
+ "final": "https://token-api.linea.build/docs-yaml",
+ "status": 200,
+ "content_type": "text/yaml; charset=utf-8",
+ "bytes": 13058,
+ "sha256": "52bd1afb049a08884b28c0c95a80395b908ee02ef185982737af1dc80d6c699a",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

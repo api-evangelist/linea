@@ -4,22 +4,18 @@ info:
   description: API to access token information on Linea, including prices, traded tokens and top movers over 24h.
   version: 0.1.0
   contact: {}
-servers:
-- url: https://token-api.linea.build
-  description: Linea Token API production server
+servers: []
 tags:
 - name: Prices
-  description: Token price history
 paths:
   /prices/{contractAddress}:
     get:
-      description: Retrieve hourly prices over the last 24 hours for a single token
+      description: Retrieve prices over the last 24 hours for a token
       operationId: PricesController_findOne
       parameters:
       - name: contractAddress
         required: true
         in: path
-        description: The Ethereum contract address of the token
         schema:
           type: string
       responses:
@@ -40,24 +36,19 @@ paths:
       - Prices
   /prices:
     get:
-      description: Retrieve hourly prices over the last 24 hours for multiple tokens
+      description: Retrieve prices over the last 24 hours for multiple tokens
       operationId: PricesController_findMany
       parameters:
       - name: addresses
         required: true
         in: query
-        description: List of token contract addresses (comma-separated, max 100)
+        description: List of tokens addresses (comma-separated)
         schema:
           maxItems: 100
           type: string
       responses:
         '200':
           description: Successfully retrieved prices
-          content:
-            application/json:
-              schema:
-                type: object
-                description: Map of contract address to price history array
       summary: Get hourly prices for multiple tokens
       tags:
       - Prices
@@ -73,7 +64,7 @@ components:
         timestamp:
           format: date-time
           type: string
-          example: '2026-05-19T13:38:03.784Z'
+          example: 2026-09-17 12:58:21.639000+00:00
           description: Date and time when the price was fetched
       required:
       - price

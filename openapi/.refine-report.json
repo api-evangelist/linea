@@ -1,7 +1,7 @@
 {
   "provider": "linea",
   "sources": [
-    "_original/linea-token-api-openapi.json"
+    "_original/linea-openapi.yml"
   ],
   "outputs": [
     "linea-prices-api-openapi.yml",
@@ -12,11 +12,10 @@
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "linea-token-api-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "linea-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "linea-openapi.yml: declared missing tag: Prices",
+    "linea-openapi.yml: declared missing tag: Tokens",
     "apis.yml register: already-registered"
   ],
-  "skipped": [
-    "linea-prices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "linea-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }
