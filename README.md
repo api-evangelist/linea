@@ -64,29 +64,162 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-ConsenSys ZK-EVM Layer 2 on Ethereum — APIs.json 0.19 provider profile.
+Linea is ConsenSys' ZK-EVM Layer 2 network built on Ethereum, offering low fees, fast finality, and full EVM compatibility. Developers access on-chain data through three complementary API surfaces: a public JSON-RPC endpoint (rpc.linea.build) supporting all standard Ethereum methods plus Linea-specific extensions (linea_estimateGas, linea_getProof), a REST Token API (token-api.linea.build) for ERC-20 token metadata and price history, and the Lineascan block explorer API (Etherscan V2-compatible) for transactions, blocks, addresses, token transfers, event logs, and contract verification across Linea Mainnet (chainId 59144) and Sepolia testnet (chainId 59141).
 
-**Portal:** https://linea.build  
-**Docs:** https://docs.linea.build  
-**Explorer:** https://lineascan.build  
-**Chain ID (Mainnet):** 59144  
-**Chain ID (Sepolia Testnet):** 59141
+**Areas:** Blockchain · Ethereum · Layer 2 · zkEVM · Web3 · DeFi · Smart Contracts · JSON-RPC · Tokens · ConsenSys
 
-## APIs Cataloged
+## Linea on APIs.io
 
-| API | Base URL | Auth |
-|-----|----------|------|
-| JSON-RPC API | https://rpc.linea.build | None (API key via private providers) |
-| Token API | https://token-api.linea.build | None |
-| Explorer API (Lineascan) | https://api.lineascan.build/api | API key required |
+Everything profiled for Linea is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/linea/](https://apis.io/providers/linea/)** — or go straight to one of the APIs or properties below.
 
-## Files
+### APIs (6)
 
-- `apis.yml` — APIs.json 0.19 provider manifest
-- `plans/linea-plans.yml` — Pricing plans
-- `rate-limits/linea-rate-limits.yml` — Rate limit details
-- `finops/linea-finops.yml` — FinOps / FOCUS cost model
+- [Linea JSON-RPC API](https://apis.io/apis/linea/json-rpc-api/) — Standard Ethereum JSON-RPC API plus Linea-specific extensions available at the public endpoint rpc.linea.build. Supports all eth_* methods (eth_blockNumber,…
+- [Linea Explorer API (Lineascan / Blockscout)](https://apis.io/apis/linea/explorer-api/) — Blockchain data APIs for Linea Mainnet backed by two explorer surfaces. The Lineascan (lineascan.build) explorer uses the Etherscan API V2 interface (chain…
+- [Linea Prices API](https://apis.io/apis/linea/linea-prices-api/) — Token price history
+- [Linea Tokens API](https://apis.io/apis/linea/linea-tokens-api/) — ERC-20 token metadata and information
+- [Linea Sepolia Testnet JSON-RPC](https://apis.io/apis/linea/sepolia-rpc/) — Public JSON-RPC endpoint for the Linea Sepolia testnet (chain ID 59141), used for application development, prover-changes testing, and bridge integration…
+- [Linea SDK](https://apis.io/apis/linea/linea-sdk/) — Official TypeScript SDK for interacting with Linea — message-service helpers, bridge claim flows, and L1/L2 utility methods used by app developers and…
 
-## Maintainer
+### Published properties
 
-Kin Lane &lt;kin@apievangelist.com&gt;
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### GraphQL (1)
+
+GraphQL schemas.
+
+- [Linea GraphQL API](https://apis.io/graphqls/linea/linea-graphql/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Linea Agentic Access](https://apis.io/agentic-access/linea/linea-agentic-access/)
+
+#### JSON Schema (3)
+
+The data models the API reads and writes.
+
+- [PriceResponse](https://apis.io/schemas/linea/price-response/)
+- [TokenPage](https://apis.io/schemas/linea/token-page/)
+- [TokenResponse](https://apis.io/schemas/linea/token-response/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Linea Context](https://apis.io/jsonld/linea/linea-context/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Get Token By Address](https://apis.io/examples/linea/get-token-by-address/)
+- [Get Token Prices](https://apis.io/examples/linea/get-token-prices/)
+- [Get Tokens](https://apis.io/examples/linea/get-tokens/)
+
+#### Collections (2)
+
+Postman and Open Collection request collections.
+
+- [Linea Token Prices API](https://apis.io/collections/linea/open-linea-prices-api/)
+- [Linea Token Prices Tokens API](https://apis.io/collections/linea/open-linea-tokens-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Linea — jsonschema rules](https://apis.io/rules/linea/linea-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Linea Domain Security](https://apis.io/security/linea/linea-domain-security/)
+- [Linea Vulnerability Disclosure](https://apis.io/security/linea/linea-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Linea Plans](https://apis.io/plans/linea/linea-plans/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Linea Rate Limits](https://apis.io/rate-limits/linea/linea-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Linea Finops](https://apis.io/finops/linea/linea-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://linea.build)
+- [Documentation](https://docs.linea.build)
+- [Getting started](https://docs.linea.build/get-started/build/quickstart/deploy)
+- [API reference](https://docs.linea.build/api/reference)
+- [Pricing](https://etherscan.io/apis?id=59144)
+- [Blog](https://linea.build/blog)
+- [GitHub](https://github.com/ConsenSys)
+
+## API Evangelist rating
+
+**Kin Score 40.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 55.2 |
+| Contract governance | 9.8 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 57.1 |
+| Access clarity | 18.4 |
+
+**Agent readiness 26.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 22.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/linea/](https://apis.io/providers/linea/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Linea: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/linea/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
